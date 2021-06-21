@@ -15,6 +15,7 @@
         &lt;BLANK LINE&gt;
         &lt;footer&gt;
         </pre>
+        <p>The plug-in is based on <a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a></p>
     ]]></description>
 
     <idea-version since-build="145.0"/>

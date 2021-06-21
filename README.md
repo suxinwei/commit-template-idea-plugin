@@ -1,4 +1,4 @@
-# Git commit template Plugin for IntelliJ
+# Git commit template personal Plugin for IntelliJ
 
 This plugin allows to create a commit message with the following template:
 
@@ -11,6 +11,8 @@ This plugin allows to create a commit message with the following template:
 ```
 
 From the contribution guidelines of the Angular project [here](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit-message-format).
+
+<p>The plug-in is based on <a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a></p>
 
 ## Installation
 
