@@ -18,7 +18,9 @@ public class CommitMessageTest {
                 "Using AngularJS with jQuery 3.3.1, this disables the CSS transition as\n" +
                 "reported in jquery/jquery#4185.\n" +
                 "\n" +
-                "Closes #16709";
+                "[" +
+                "fixed: #16709"
+                + "]";
         check(commitMessage, expected);
     }
 
@@ -41,8 +43,10 @@ public class CommitMessageTest {
                 "Enables users to specify that a particular route should not be reloaded\n" +
                 "after a URL change.\n" +
                 "\n" +
-                "Closes #7925\n" +
-                "Closes #15002";
+                "[" +
+                "fixed: #7925\n" +
+                "fixed: #15002"
+                + "]";
         check(commitMessage, expected);
     }
 
@@ -76,9 +80,11 @@ public class CommitMessageTest {
                 "", "7925, #15002 , https://github.com/o/r/issues/15003 ", true, false);
         String expected = "feat($route): add support for the `reloadOnUrl` configuration option\n" +
                 "\n" +
-                "Closes #7925\n" +
-                "Closes #15002\n" +
-                "Closes https://github.com/o/r/issues/15003";
+                "[" +
+                "fixed: #7925\n" +
+                "fixed: #15002\n" +
+                "fixed: https://github.com/o/r/issues/15003"
+                + "]";
         assertEquals(expected, commitMessage.toString());
     }
 

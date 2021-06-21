@@ -14,8 +14,8 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
 class CommitMessage {
     private static final int MAX_LINE_LENGTH = 72; // https://stackoverflow.com/a/2120040/5138796
 
-    public static final Pattern COMMIT_FIRST_LINE_FORMAT = Pattern.compile("^([a-z]+)(\\((.+)\\))?: (.+)");
-    public static final Pattern COMMIT_CLOSES_FORMAT = Pattern.compile("Closes (.+)");
+    public static final Pattern COMMIT_FIRST_LINE_FORMAT = Pattern.compile("^([a-z]+)(\\([.+]\\))?: (.+)");
+    public static final Pattern COMMIT_CLOSES_FORMAT = Pattern.compile("[fixed: (.+)]");
 
     private ChangeType changeType;
     private String changeScope, shortDescription, longDescription, breakingChanges, closedIssues;
@@ -46,9 +46,9 @@ class CommitMessage {
         builder.append(changeType.label());
         if (isNotBlank(changeScope)) {
             builder
-                    .append('(')
+                    .append('[')
                     .append(changeScope)
-                    .append(')');
+                    .append(']');
         }
         builder
                 .append(": ")
@@ -58,7 +58,9 @@ class CommitMessage {
             builder
                     .append(System.lineSeparator())
                     .append(System.lineSeparator())
-                    .append(wrapText ? WordUtils.wrap(longDescription, MAX_LINE_LENGTH) : longDescription);
+                    .append("[")
+                    .append(wrapText ? WordUtils.wrap(longDescription, MAX_LINE_LENGTH) : longDescription)
+                    .append("]");
         }
 
         if (isNotBlank(breakingChanges)) {
@@ -74,8 +76,10 @@ class CommitMessage {
             for (String closedIssue : closedIssues.split(",")) {
                 builder
                         .append(System.lineSeparator())
-                        .append("Closes ")
-                        .append(formatClosedIssue(closedIssue));
+                        .append("[")
+                        .append("fixed: ")
+                        .append(formatClosedIssue(closedIssue))
+                        .append("]");
             }
         }
 
@@ -114,7 +118,8 @@ class CommitMessage {
             stringBuilder = new StringBuilder();
             for (; pos < strings.length; pos++) {
                 String lineString = strings[pos];
-                if (lineString.startsWith("BREAKING") || lineString.startsWith("Closes") || lineString.equalsIgnoreCase("[skip ci]")) break;
+                if (lineString.startsWith("BREAKING") || lineString.startsWith("[fixed: ") || lineString.equalsIgnoreCase("[skip ci]"))
+                    break;
                 stringBuilder.append(lineString).append('\n');
             }
             commitMessage.longDescription = stringBuilder.toString().trim();
@@ -122,7 +127,7 @@ class CommitMessage {
             stringBuilder = new StringBuilder();
             for (; pos < strings.length; pos++) {
                 String lineString = strings[pos];
-                if (lineString.startsWith("Closes") || lineString.equalsIgnoreCase("[skip ci]")) break;
+                if (lineString.startsWith("[fixed: ") || lineString.equalsIgnoreCase("[skip ci]")) break;
                 stringBuilder.append(lineString).append('\n');
             }
             commitMessage.breakingChanges = stringBuilder.toString().trim().replace("BREAKING CHANGE: ", "");
@@ -136,7 +141,8 @@ class CommitMessage {
             commitMessage.closedIssues = stringBuilder.toString();
 
             commitMessage.skipCI = message.contains("[skip ci]");
-        } catch (RuntimeException e) {}
+        } catch (RuntimeException e) {
+        }
 
         return commitMessage;
     }
