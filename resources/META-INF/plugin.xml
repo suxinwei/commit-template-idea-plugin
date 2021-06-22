@@ -9,7 +9,7 @@
         <p>Create a commit message with the following template:</p>
 
         <pre>
-        &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
+        &lt;type&gt;[&lt;scope&gt;]: &lt;subject&gt;
         &lt;BLANK LINE&gt;
         &lt;body&gt;
         &lt;BLANK LINE&gt;
