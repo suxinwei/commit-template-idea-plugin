@@ -53,7 +53,7 @@ class CommitMessage {
                     .append(System.lineSeparator())
                     .append(System.lineSeparator())
                     .append("[")
-                    .append(WordUtils.wrap(longDescription, MAX_LINE_LENGTH))
+                    .append(longDescription)
                     .append("]");
         }
 
