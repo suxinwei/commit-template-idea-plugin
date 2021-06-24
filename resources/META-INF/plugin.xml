@@ -15,6 +15,19 @@
         &lt;BLANK LINE&gt;
         &lt;footer&gt;
         </pre>
+
+        <p>For example:</p>
+
+        <pre>
+        fix[$compile]: couple of unit tests for IE 9
+
+        [Older IEs serialize html uppercased, but IE9 does not...
+        Would be better to expect case insensitive, unfortunately jasmine does
+        not allow to user regexps for throw exectations]
+
+        [fixed: #392]
+        <pre>
+
         <p>The plug-in is based on <a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a></p>
     ]]></description>
 
