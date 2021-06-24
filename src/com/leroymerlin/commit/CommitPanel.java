@@ -62,17 +62,17 @@ public class CommitPanel implements ItemListener {
     }
 
     CommitMessage getCommitMessage() {
-        String longDescription = null;
+        String closedIssuesResult = null;
         if (fixRadioButton.isSelected()) {
-            longDescription = this.longDescription.getText().trim();
+            closedIssuesResult = this.closedIssues.getText().trim();
         }
 
         return new CommitMessage(
                 getSelectedChangeType(),
                 (String) changeScope.getSelectedItem(),
                 shortDescription.getText().trim(),
-                longDescription,
-                closedIssues.getText().trim());
+                longDescription.getText().trim(),
+                closedIssuesResult);
     }
 
     private ChangeType getSelectedChangeType() {
