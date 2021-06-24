@@ -16,6 +16,7 @@
         &lt;footer&gt;
         </pre>
 
+        <br/>
         <p>For example:</p>
 
         <pre>
@@ -26,8 +27,9 @@
         not allow to user regexps for throw exectations]
 
         [fixed: #392]
-        <pre>
+        </pre>
 
+        <br/>
         <p>The plug-in is based on <a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a></p>
     ]]></description>
 
