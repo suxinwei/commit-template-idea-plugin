@@ -15,7 +15,7 @@ import javax.swing.*;
  * @author Damien Arrachequesne
  */
 public class CommitPanel implements ItemListener {
-    private static final String CHANGE_SCOPE_HINT = "---Please select the item below---";
+    private static final String CHANGE_SCOPE_HINT = "---Select the item below---";
 
     private JPanel mainPanel;
     private JComboBox<String> changeScope;
