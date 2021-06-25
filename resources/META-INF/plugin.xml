@@ -1,9 +1,9 @@
 <idea-plugin>
     <id>commit-template-idea-plugin-personal</id>
     <name>Git Commit Template Personal</name>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 
-    <vendor email="suxinwei2012@163.com" />
+    <vendor email="suxinwei2012@163.com" >suxinwei</vendor>
 
     <description><![CDATA[
         <p>Create a commit message with the following template:</p>
