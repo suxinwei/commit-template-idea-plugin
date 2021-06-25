@@ -41,7 +41,6 @@
         <li>fix: "Scope of this change" field values can't be restored</li>
         <li>feat: "Scope of this change" field add hint</li>
         </ul>
-        <ul>
         ]]>
     </change-notes>
 
