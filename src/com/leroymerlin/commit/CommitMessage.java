@@ -99,19 +99,21 @@ class CommitMessage {
             stringBuilder = new StringBuilder();
             for (; pos < strings.length; pos++) {
                 String lineString = strings[pos];
-                if (lineString.startsWith("BREAKING") || lineString.startsWith("[fixed: ") || lineString.equalsIgnoreCase("[skip ci]"))
+                if (lineString.startsWith("[fixed: "))
                     break;
                 stringBuilder.append(lineString).append('\n');
             }
 
             int firstIndex = stringBuilder.indexOf("[");
-            int lastIndex = stringBuilder.indexOf("]") - 1;
-            commitMessage.longDescription = stringBuilder.toString().trim().substring(firstIndex, lastIndex);
+            if (firstIndex >= 0) {
+                int lastIndex = stringBuilder.indexOf("]") - 1;
+                commitMessage.longDescription = stringBuilder.toString().trim().substring(firstIndex, lastIndex);
+            }
 
             stringBuilder = new StringBuilder();
             for (; pos < strings.length; pos++) {
                 String lineString = strings[pos];
-                if (lineString.startsWith("[fixed: ") || lineString.equalsIgnoreCase("[skip ci]")) break;
+                if (lineString.startsWith("[fixed: ")) break;
                 stringBuilder.append(lineString).append('\n');
             }
 
