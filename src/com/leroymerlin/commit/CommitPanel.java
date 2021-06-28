@@ -36,8 +36,8 @@ public class CommitPanel implements ItemListener {
     CommitPanel(Project project, CommitMessage commitMessage) {
         File workingDirectory = new File(project.getBasePath());
         GitLogQuery.Result result = new GitLogQuery(workingDirectory).execute();
+        changeScope.addItem(CHANGE_SCOPE_HINT);
         if (result.isSuccess()) {
-            changeScope.addItem(CHANGE_SCOPE_HINT);
             result.getScopes().forEach(changeScope::addItem);
         }
 
