@@ -8,6 +8,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.Enumeration;
+import java.util.concurrent.Executors;
 
 import javax.swing.*;
 
@@ -34,12 +35,7 @@ public class CommitPanel implements ItemListener {
     private ButtonGroup changeTypeGroup;
 
     CommitPanel(Project project, CommitMessage commitMessage) {
-        File workingDirectory = new File(project.getBasePath());
-        GitLogQuery.Result result = new GitLogQuery(workingDirectory).execute();
-        changeScope.addItem(CHANGE_SCOPE_HINT);
-        if (result.isSuccess()) {
-            result.getScopes().forEach(changeScope::addItem);
-        }
+        initChangeScopeData(project);
 
         if (commitMessage != null) {
             restoreValuesFromParsedCommitMessage(commitMessage);
@@ -65,6 +61,20 @@ public class CommitPanel implements ItemListener {
         });
 
         showFixView(fixRadioButton.isSelected());
+    }
+
+    private void initChangeScopeData(Project project) {
+        changeScope.addItem(CHANGE_SCOPE_HINT);
+        Executors.newCachedThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                File workingDirectory = new File(project.getBasePath());
+                GitLogQuery.Result result = new GitLogQuery(workingDirectory).execute();
+                if (result.isSuccess()) {
+                    result.getScopes().forEach(changeScope::addItem);
+                }
+            }
+        });
     }
 
     JPanel getMainPanel() {
