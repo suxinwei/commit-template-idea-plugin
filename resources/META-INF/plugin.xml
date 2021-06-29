@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>commit-template-idea-plugin-personal</id>
     <name>Git Commit Template Personal</name>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
 
     <vendor email="suxinwei2012@163.com" >suxinwei</vendor>
 
@@ -36,10 +36,25 @@
     <change-notes>
         <![CDATA[
         <ul>
-        1.2.1
+        <h2>1.2.2</h2>
+        <li>perf: improve plug-in pop-up speed</li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        perf: 提高插件弹窗速度
+        <li>fix: "Scope of this change" field does not hint when there aren't git system environment variables</li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        fix: 没有配置git环境变量时，"Scope of this change"下拉框没有出现提示
+        </ul>
+        <ul>
+        <h2>1.2.1</h2>
         <li>fix: "fixed issues" field value can't be restored when "Long description" field value is empty</li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        fix: 长描述字段为空时，"fixed issues"字段不会被恢复到
         <li>fix: "Scope of this change" field values can't be restored</li>
-        <li>feat: "Scope of this change" field add hint</li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        fix: "Scope of this change"字段集合，没有被恢复到
+        <li>feat: "Scope of this change" field add hint, improve ui effort</li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        feat: "Scope of this change"字段增加提示，使ui效果更好
         </ul>
         ]]>
     </change-notes>
