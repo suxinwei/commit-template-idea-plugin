@@ -16,7 +16,7 @@ public class CommitDialog extends DialogWrapper {
     CommitDialog(@Nullable Project project, CommitMessage commitMessage) {
         super(project);
         panel = new CommitPanel(project, commitMessage);
-        setTitle("Commit");
+        setTitle("Commit Message");
         setOKButtonText("OK");
         init();
     }
