@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>commit-template-idea-plugin-personal</id>
     <name>Git Commit Template Personal</name>
-    <version>1.2.2</version>
+    <version>1.3.0</version>
 
     <vendor email="suxinwei2012@163.com" >suxinwei</vendor>
 
@@ -35,6 +35,17 @@
 
     <change-notes>
         <![CDATA[
+
+        <ul>
+        <h2>1.3.0</h2>
+        <li>feat: check message template when commit</li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        feat: 提交时检查消息模板
+        <li>feat: "Long description" editing area add scroll bar, improve ui effort</li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        feat: "Long description"编辑区域增加滚动条，使ui效果更好
+        </ul>
+
         <ul>
         <h2>1.2.2</h2>
         <li>perf: improve plug-in pop-up speed</li>
@@ -44,6 +55,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
         fix: 没有配置git环境变量时，"Scope of this change"下拉框没有出现提示
         </ul>
+
         <ul>
         <h2>1.2.1</h2>
         <li>fix: "fixed issues" field value can't be restored when "Long description" field value is empty</li>
@@ -56,6 +68,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
         feat: "Scope of this change"字段增加提示，使ui效果更好
         </ul>
+
         ]]>
     </change-notes>
 
@@ -70,7 +83,7 @@
 
     <actions>
         <action id="Commit.Button" class="com.leroymerlin.commit.CreateCommitAction"
-                text="Create commit message"
+                text="Create Commit Message"
                 description="Create commit message"
                 icon="/icons/load.png">
             <add-to-group group-id="Vcs.MessageActionGroup" anchor="first"/>

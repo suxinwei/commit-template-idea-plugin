@@ -10,6 +10,19 @@ This plugin allows to create a commit message with the following template:
 <footer>
 ```
 
+For example:
+
+```
+fix[compile]: couple of unit tests for IE 9
+
+[Older IEs serialize html uppercased, but IE9 does not...
+Would be better to expect case insensitive, unfortunately jasmine does
+not allow to user regexps for throw exectations]
+
+[fixed: #392]
+[fixed: #393]
+```
+
 <p>The plug-in is based on <a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a></p>
 
 ## Installation
