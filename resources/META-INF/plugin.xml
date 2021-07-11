@@ -20,13 +20,14 @@
         <p>For example:</p>
 
         <pre>
-        fix[$compile]: couple of unit tests for IE 9
+        fix[compile]: couple of unit tests for IE 9
 
         [Older IEs serialize html uppercased, but IE9 does not...
         Would be better to expect case insensitive, unfortunately jasmine does
         not allow to user regexps for throw exectations]
 
         [fixed: #392]
+        [fixed: #393]
         </pre>
 
         <br/>
