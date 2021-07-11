@@ -11,7 +11,7 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
 /**
  * @author Damien Arrachequesne <damien.arrachequesne@gmail.com>
  */
-class CommitMessage {
+public class CommitMessage {
     private static final int MAX_LINE_LENGTH = 72; // https://stackoverflow.com/a/2120040/5138796
 
     public static final Pattern COMMIT_FIRST_LINE_FORMAT = Pattern.compile("^([a-z]+)(\\[(.+)\\])?: (.+)");
