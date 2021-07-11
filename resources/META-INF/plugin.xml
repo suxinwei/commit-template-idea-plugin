@@ -65,6 +65,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
+        <checkinHandlerFactory implementation="com.sxw.commit.CheckCommitTemplateFactory" order="first"/>
     </extensions>
 
     <actions>
