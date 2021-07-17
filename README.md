@@ -37,7 +37,7 @@ Install directly from the IDE plugin manager (File > Settings > Plugins > Browse
 
 ![Commit-step3](static/commit-template-3.png)
 
-![Commit-step3](static/commit-template-4.png)
+![Commit-step4](static/commit-template-4.png)
 
 ## License
 
