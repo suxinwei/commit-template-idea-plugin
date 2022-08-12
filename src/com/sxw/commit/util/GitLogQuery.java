@@ -1,4 +1,4 @@
-package com.leroymerlin.commit;
+package com.sxw.commit.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,17 +13,16 @@ import java.util.regex.Pattern;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
-class GitLogQuery {
-    private static final String GIT_LOG_COMMAND = "git log --all --format=%s";
-    private static final Pattern COMMIT_FIRST_LINE_FORMAT = Pattern.compile("^[a-z]+\\[(.+)\\]:.*");
-
+public class GitLogQuery {
     private final File workingDirectory;
+    private final String gitCommon;
 
-    GitLogQuery(File workingDirectory) {
+    public GitLogQuery(File workingDirectory, String gitCommon) {
         this.workingDirectory = workingDirectory;
+        this.gitCommon = gitCommon;
     }
 
-    static class Result {
+    public static class Result {
         static Result ERROR = new Result(-1);
 
         private final int exitValue;
@@ -38,37 +37,26 @@ class GitLogQuery {
             this.logs = logs;
         }
 
-        boolean isSuccess() {
+        public boolean isSuccess() {
             return exitValue == 0;
         }
 
-        public Set<String> getScopes() {
-            Set<String> scopes = new HashSet<>();
-
-            this.logs.forEach(s -> {
-                Matcher matcher = COMMIT_FIRST_LINE_FORMAT.matcher(s);
-                if (matcher.find()) {
-                    scopes.add(matcher.group(1));
-                }
-            });
-
-            return scopes;
+        public List<String> getLogs() {
+            return logs;
         }
     }
 
-    Result execute() {
+    public Result execute() {
         try {
             ProcessBuilder processBuilder;
             String osName = System.getProperty("os.name");
             if (osName.contains("Windows")) {
-                processBuilder = new ProcessBuilder("cmd", "/C", GIT_LOG_COMMAND);
+                processBuilder = new ProcessBuilder("cmd", "/C", gitCommon);
             } else {
-                processBuilder = new ProcessBuilder("sh", "-c", GIT_LOG_COMMAND);
+                processBuilder = new ProcessBuilder("sh", "-c", gitCommon);
             }
 
-            Process process = processBuilder
-                    .directory(workingDirectory)
-                    .start();
+            Process process = processBuilder.directory(workingDirectory).start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
             List<String> output = reader.lines().collect(toList());

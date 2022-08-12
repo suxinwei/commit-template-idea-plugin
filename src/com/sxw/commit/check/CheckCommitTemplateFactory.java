@@ -1,4 +1,4 @@
-package com.sxw.commit;
+package com.sxw.commit.check;
 
 import com.intellij.openapi.vcs.CheckinProjectPanel;
 import com.intellij.openapi.vcs.changes.CommitContext;

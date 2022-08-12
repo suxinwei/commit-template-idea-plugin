@@ -1,4 +1,4 @@
-package com.leroymerlin.commit;
+package com.sxw.commit;
 
 import org.junit.Test;
 
@@ -121,7 +121,7 @@ public class CommitMessageTest {
         CommitMessage actual = CommitMessage.parse(output);
         assertEquals(commitMessage.getChangeType(), actual.getChangeType());
         assertEquals(commitMessage.getChangeScope(), actual.getChangeScope());
-        assertEquals(commitMessage.getShortDescription(), actual.getShortDescription());
+        assertEquals(commitMessage.getCommitTitle(), actual.getCommitTitle());
         // FIXME should we remove newlines?
         // assertEquals(expected.getLongDescription(), actual.getLongDescription());
         // assertEquals(expected.getBreakingChanges(), actual.getBreakingChanges());

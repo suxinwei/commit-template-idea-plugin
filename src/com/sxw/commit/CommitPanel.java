@@ -1,6 +1,7 @@
-package com.leroymerlin.commit;
+package com.sxw.commit;
 
 import com.intellij.openapi.project.Project;
+import com.sxw.commit.util.GitLogQuery;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import javax.swing.*;
  */
 public class CommitPanel implements ItemListener {
     private static final String CHANGE_SCOPE_HINT = "---Select the item below---";
+    private static final String GIT_LOG_COMMAND = "git log --all --format=%s";
 
     private JPanel mainPanel;
     private JComboBox<String> changeScope;
@@ -69,9 +71,9 @@ public class CommitPanel implements ItemListener {
             @Override
             public void run() {
                 File workingDirectory = new File(project.getBasePath());
-                GitLogQuery.Result result = new GitLogQuery(workingDirectory).execute();
+                GitLogQuery.Result result = new GitLogQuery(workingDirectory, GIT_LOG_COMMAND).execute();
                 if (result.isSuccess()) {
-                    result.getScopes().forEach(changeScope::addItem);
+                    CommitMessage.getScopes(result.getLogs()).forEach(changeScope::addItem);
                 }
             }
         });
@@ -117,8 +119,8 @@ public class CommitPanel implements ItemListener {
             }
         }
         changeScope.setSelectedItem(commitMessage.getChangeScope());
-        shortDescription.setText(commitMessage.getShortDescription());
-        longDescription.setText(commitMessage.getLongDescription());
+        shortDescription.setText(commitMessage.getCommitTitle());
+        longDescription.setText(commitMessage.getCommitDesc());
         closedIssues.setText(commitMessage.getClosedIssues());
     }
 

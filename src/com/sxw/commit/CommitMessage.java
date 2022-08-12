@@ -1,8 +1,10 @@
-package com.leroymerlin.commit;
+package com.sxw.commit;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,25 +14,25 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
  * @author Damien Arrachequesne <damien.arrachequesne@gmail.com>
  */
 public class CommitMessage {
-    private static final int MAX_LINE_LENGTH = 72; // https://stackoverflow.com/a/2120040/5138796
+    private static final int MAX_COUNT_SCOPES = 10;
 
-    public static final Pattern COMMIT_FIRST_LINE_FORMAT = Pattern.compile("^([a-z]+)(\\[(.+)\\])?: (.+)");
-    public static final Pattern COMMIT_CLOSES_FORMAT = Pattern.compile("\\[fixed: (.+)\\]");
+    private static final Pattern COMMIT_FIRST_LINE_FORMAT = Pattern.compile("^([a-z]+)(\\((.+)\\))?: (.+)");
+    private static final Pattern COMMIT_SCOPE_FIRST_LINE_FORMAT = Pattern.compile("^[a-z]+\\((.+)\\):.*");
+    private static final Pattern COMMIT_CLOSES_FORMAT = Pattern.compile("\\[fixed: (.+)\\]");
 
     private ChangeType changeType;
-    private String changeScope, shortDescription, longDescription, closedIssues;
+    private String changeScope, commitTitle, commitDesc, closedIssues;
 
     private CommitMessage() {
-        this.longDescription = "";
+        this.commitDesc = "";
         this.closedIssues = "";
     }
 
-    public CommitMessage(ChangeType changeType, String changeScope, String shortDescription, String longDescription,
-                         String closedIssues) {
+    public CommitMessage(ChangeType changeType, String changeScope, String commitTitle, String commitDesc, String closedIssues) {
         this.changeType = changeType;
         this.changeScope = changeScope;
-        this.shortDescription = shortDescription;
-        this.longDescription = longDescription;
+        this.commitTitle = commitTitle;
+        this.commitDesc = commitDesc;
         this.closedIssues = closedIssues;
     }
 
@@ -39,34 +41,19 @@ public class CommitMessage {
         StringBuilder builder = new StringBuilder();
         builder.append(changeType.label());
         if (isNotBlank(changeScope)) {
-            builder
-                    .append('[')
-                    .append(changeScope)
-                    .append(']');
+            builder.append('(').append(changeScope).append(')');
         }
-        builder
-                .append(": ")
-                .append(shortDescription);
+        builder.append(": ").append(commitTitle);
 
-        if (isNotBlank(longDescription)) {
-            builder
-                    .append(System.lineSeparator())
-                    .append(System.lineSeparator())
-                    .append("[")
-                    .append(longDescription)
-                    .append("]");
+        if (isNotBlank(commitDesc)) {
+            builder.append(System.lineSeparator()).append(System.lineSeparator()).append("[").append(commitDesc).append("]");
         }
 
 
         if (isNotBlank(closedIssues)) {
             builder.append(System.lineSeparator());
             for (String closedIssue : closedIssues.split(",")) {
-                builder
-                        .append(System.lineSeparator())
-                        .append("[")
-                        .append("fixed: ")
-                        .append(formatClosedIssue(closedIssue))
-                        .append("]");
+                builder.append(System.lineSeparator()).append("[").append("fixed: ").append(formatClosedIssue(closedIssue)).append("]");
             }
         }
 
@@ -88,7 +75,7 @@ public class CommitMessage {
 
             commitMessage.changeType = ChangeType.valueOf(matcher.group(1).toUpperCase());
             commitMessage.changeScope = matcher.group(3);
-            commitMessage.shortDescription = matcher.group(4);
+            commitMessage.commitTitle = matcher.group(4);
 
             String[] strings = message.split("\n");
             if (strings.length < 2) return commitMessage;
@@ -99,15 +86,14 @@ public class CommitMessage {
             stringBuilder = new StringBuilder();
             for (; pos < strings.length; pos++) {
                 String lineString = strings[pos];
-                if (lineString.startsWith("[fixed: "))
-                    break;
+                if (lineString.startsWith("[fixed: ")) break;
                 stringBuilder.append(lineString).append('\n');
             }
 
             int firstIndex = stringBuilder.indexOf("[");
             if (firstIndex >= 0) {
                 int lastIndex = stringBuilder.indexOf("]") - 1;
-                commitMessage.longDescription = stringBuilder.toString().trim().substring(firstIndex, lastIndex);
+                commitMessage.commitDesc = stringBuilder.toString().trim().substring(firstIndex, lastIndex);
             }
 
             stringBuilder = new StringBuilder();
@@ -131,6 +117,22 @@ public class CommitMessage {
         return commitMessage;
     }
 
+    public static Set<String> getScopes(List<String> logs) {
+        Set<String> scopes = new HashSet<>();
+
+        logs.forEach(s -> {
+            if (scopes.size() > MAX_COUNT_SCOPES) {
+                return;
+            }
+            Matcher matcher = COMMIT_SCOPE_FIRST_LINE_FORMAT.matcher(s);
+            if (matcher.find()) {
+                scopes.add(matcher.group(1));
+            }
+        });
+
+        return scopes;
+    }
+
     public ChangeType getChangeType() {
         return changeType;
     }
@@ -139,12 +141,12 @@ public class CommitMessage {
         return changeScope;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
+    public String getCommitTitle() {
+        return commitTitle;
     }
 
-    public String getLongDescription() {
-        return longDescription;
+    public String getCommitDesc() {
+        return commitDesc;
     }
 
 

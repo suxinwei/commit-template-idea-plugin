@@ -42,9 +42,9 @@
         <li>feat: check message template when commit</li>
         &nbsp;&nbsp;&nbsp;&nbsp;
         feat: 提交时检查消息模板
-        <li>feat: "Long description" editing area add scroll bar, improve ui effort</li>
+        <li>feat: "Commit desc" editing area add scroll bar, improve ui effort</li>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        feat: "Long description"编辑区域增加滚动条，使ui效果更好
+        feat: "Commit desc"编辑区域增加滚动条，使ui效果更好
         </ul>
 
         <ul>
@@ -59,7 +59,7 @@
 
         <ul>
         <h2>1.2.1</h2>
-        <li>fix: "fixed issues" field value can't be restored when "Long description" field value is empty</li>
+        <li>fix: "fixed issues" field value can't be restored when "Commit desc" field value is empty</li>
         &nbsp;&nbsp;&nbsp;&nbsp;
         fix: 长描述字段为空时，"fixed issues"字段不会被恢复到
         <li>fix: "Scope of this change" field values can't be restored</li>
@@ -79,11 +79,11 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <checkinHandlerFactory implementation="com.sxw.commit.CheckCommitTemplateFactory" order="first"/>
+        <checkinHandlerFactory implementation="com.sxw.commit.check.CheckCommitTemplateFactory" order="first"/>
     </extensions>
 
     <actions>
-        <action id="Commit.Button" class="com.leroymerlin.commit.CreateCommitAction"
+        <action id="Commit.Button" class="com.sxw.commit.CreateCommitAction"
                 text="Create Commit Message"
                 description="Create commit message"
                 icon="/icons/load.png">

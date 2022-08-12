@@ -1,4 +1,4 @@
-package com.leroymerlin.commit;
+package com.sxw.commit;
 
 /**
  * From https://github.com/commitizen/conventional-commit-types
